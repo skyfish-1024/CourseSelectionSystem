@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="For Json viewer">
+    <title>CourseSelectionSystem接口文档</title>
+    <link href="https://img.cdn.apipost.cn/v6/docs/img/doc_favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/docs/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://img.cdn.apipost.cn/docs/css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/github.css">
+    <script type="text/javascript"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/jquery-3.4.1.min.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/colResizable-1.6.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/marked.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/template-web.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/highlight.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/statics/libs/crypto-js/crypto-js.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/json5.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/js/enc.min.js"></script>
+    <script type="text/javascript" src="https://img.cdn.apipost.cn/docs/json-viewer/json-viewer.min.js"></script>
+    <script src="https://img.cdn.apipost.cn/docs/js/indent.js"></script>
+
+    <script>
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,                 //月份
+                "d+": this.getDate(),                    //日
+                "h+": this.getHours(),                   //小时
+                "m+": this.getMinutes(),                 //分
+                "s+": this.getSeconds(),                 //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds()             //毫秒
+            };
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            }
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return fmt;
+        }
+    </script>
+    <style type="text/css">
+        .preview-markdown table td {
+            position: relative;
+        }
+
+        .indent-fold {
+            border: 0;
+            background: transparent;
+            position: absolute;
+            left: -25px;
+            top: 10px;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            text-align: center;
+            width: 15px;
+            height: 15px;
+            padding: 0;
+        }
+
+        .indent-fold img {
+            position: static !important;
+            transform: translateY(0);
+        }
+
+        .indent-fold.right img {
+            transform: rotate(0);
+        }
+
+        .indent-fold.down img {
+            transform: rotate(-90deg);
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/docs.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/v6.css">
+    <link rel="stylesheet" href="https://img.cdn.apipost.cn/docs/css/jsonview.css">
+    <style>
+       .body .box{
+            height: calc(100vh - 60px);
+        }
+
+        .JCLRgrip .JColResizer {
+            cursor: col-resize;
+        }
+
+        table tr td,
+        th {
+            text-indent: 8px;
+        }
+
+        .JColResizer>tbody>tr>td,
+        .JColResizer>tbody>tr>th {
+            overflow: visible !important;
+        }
+    </style>
+</head>
+
+<body>
+<!-- <body> -->
+<div class="body">
+    <div class="doc-head">
+        <div class="left">
+            <a href="https://www.apipost.cn/" target="_blank" title="ApiPost接口与文档管理系统">
+                <img src="https://img.cdn.apipost.cn/v6/docs/img/logov6.svg" alt="ApiPost接口与文档管理系统">
+            </a>
+        </div>
+        <div class="container">
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-first" style="display: flex; flex-direction: column;justify-content: flex-end;">
+            <div class="sreachInput">
+                <img src="https://img.cdn.apipost.cn/v6/docs/img/search.svg" alt="">
+                <input type="text" class="search" placeholder="搜索目录/接口">
+            </div>
+            <div class="title">
+
+            </div>
+            <div class="target top" data-target_id="001">
+                <div class="globals_select"></div>
+                全局参数
+            </div>
+            <div class="new">
+
+            </div>
+            <!-- <a href="https://www.toutiao.com/i6960487351701275149/" id = "advertise" target="_blank" style="display: inline-block; width: 300px;height: 70px;background: url('https://img.cdn.apipost.cn/cdn/images/a-long-letter.svg?0424') no-repeat left"></a> -->
+            <div class="bar"></div>
+            <script type="text/html" id="template-target-sidebar-list-tpl">
+                {{each list value}}
+                <div>
+                    <div class="target {{value.target_type == 'folder' ? 'folder':'api'}}"
+                         data-type="{{value.target_type}}"
+                         data-target_id="{{value.local_target_id}}">
+                        {{if value.target_type == 'folder'}}
+                        <span>
+                       <span class="control">
+                           {{if value.children}}
+                           <div class="folder_select">
+
+                           </div>
+                           {{/if}}
+                        </span>
+                       <span>
+                         <div class="img">
+
+                         </div>
+                         {{value.name}}
+                        </span>
+                       </span>
+                        {{else}}
+                        <span>
+                         <em class="{{((value.target_type == 'doc') || (value.target_type == 'example' && value.is_doc == 1)) ? 'DOC' : value.target_type != 'example' ? value.method : value.method}}">{{(value.target_type == 'doc' || (value.target_type == 'example' && value.is_doc == '1')) ? '文本' :  value.method == 'OPTIONS' ? 'OPT' : value.method == 'DELETE' ? 'DEL' : value.method == 'UNLINK' ? 'UNLNK' : value.method == 'UNLOCK' ? 'UNLCK' : value.method == 'PROPFIND' ? 'PROP' : value.method}}</em>
+                       <span>{{value.name}}</span>
+                       </span>
+                        <span></span>
+                        {{/if}}
+                    </div>
+                    {{if value.children!=null}}
+                    {{each value.children data}}
+                    {{set a=data["index"]=3}}
+                    {{include 'list1' data}}
+                    {{/each}}
+                    {{/if}}
+                </div>
+                {{/each}}
+            </script>
+            <script type="text/html" id="list1">
+                <div>
+                    <div class="target {{target_type == 'folder' ? 'folder':'api'}}" data-type="{{target_type}}"
+                         data-target_id="{{local_target_id}}"
+                         style="padding-left:{{index * 15}}px">
+                        {{if target_type == 'folder'}}
+                        <span>
+                           <span class="control">
+                              {{if children}}
+                              <div class="folder_select">
+
+                              </div>
+                              {{/if}}
+                            </span>
+                        <span>
+                           <div class="img">
+
+                         </div>
+                          {{name}}
+                        </span>
+                       </span>
+                        {{else}}
+                        <span>
+                          <em class="{{((target_type == 'doc') || (target_type == 'example' && is_doc == 1)) ? 'DOC' : target_type != 'example' ? method : method}}">{{(target_type == 'doc' || (target_type == 'example' && is_doc == '1')) ? '文本' :  method == 'OPTIONS' ? 'OPT' : method == 'DELETE' ? 'DEL' : method == 'UNLINK' ? 'UNLNK' : method == 'UNLOCK' ? 'UNLCK' : method == 'PROPFIND' ? 'PROP' : method}}</em>
+                          <span>{{name}}</span>
+                          </span>
+                        <span></span>
+                        {{/if}}
+                    </div>
+                    {{if children!=null}}
+                    {{each children data}}
+                    {{if index}}
+                    {{set b=data.index=index+1}}
+                    {{else}}
+                    {{set c=data["index"] = 3}}
+                    {{/if}}
+                    {{include 'list1' data}}
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </script>
+        </div>
+        <div class="box-third">
+            <div class=" preview-markdown">
+
+            </div>
+            <div style="width: 100%;">
+
+            </div>
+            <div class="box-nav" style="background: #fff;">
+                <ul class="api template-nav-menu">
+                    <script type="text/html" id="template-nav-menu-tpl">
+                        <!--                            {{if target_type == "api" || target_type == "folder" || (target_type == "example" && is_doc == 0) }}-->
+                        {{if request.description}}
+                        <li class="cur nav-btn" data-id="0" style="display: block"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                接口说明</a></li>
+                        <li class="nav-btn" data-id="1"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                基本信息</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="0" style="display: none"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                接口说明</a></li>
+                        <li class="cur nav-btn" data-id="1"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                基本信息</a></li>
+                        {{/if}}
+                        <!--                            {{/if}}-->
+                        {{if request.header.parameter.length > 0 || request.query.parameter.length > 0 ||
+                        request.resful.parameter.length > 0 || request.body.parameter.length>0 || request.body.raw !=''}}
+                        <li class="nav-btn" data-id="2" style="display: block"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                请求参数</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="2" style="display: none"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                请求参数</a></li>
+                        {{/if}}
+                        <ul>
+                            {{if request.header.parameter.length > 0}}
+                            <li class="nav-btn" data-id="3" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    header参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="3" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    header参数及说明</a></li>
+                            {{/if}}
+                            {{if request.query.parameter.length > 0}}
+                            <li class="nav-btn" data-id="4" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    query参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="4" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    query参数及说明</a></li>
+                            {{/if}}
+                            {{if request.resful.parameter.length > 0}}
+                            <li class="nav-btn" data-id="5" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    路径参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="5" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    路径参数及说明</a></li>
+                            {{/if}}
+
+                            {{if request?.auth?.type && request?.auth?.type != 'noauth'}}
+                            <li class="nav-btn" data-id="6" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    认证及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="6" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    认证及说明</a></li>
+                            {{/if}}
+                            {{if request.body.parameter.length>0 || request.body.raw !='' }}
+                            <li class="nav-btn" data-id="7" style="display: block"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    body参数及说明</a></li>
+                            {{else}}
+                            <li class="nav-btn" data-id="7" style="display: none"><a href="javascript:;">
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                    body参数及说明</a></li>
+                            {{/if}}
+                            <!--                        <li class="nav-btn" data-id="6"><a href="javascript:;">预执行脚本</a></li>-->
+                            <!--                        <li class="nav-btn" data-id="7"><a href="javascript:;">后执行脚本</a></li>-->
+
+                        </ul>
+                        {{if response.success.raw || response.success.parameter.length > 0 || response.error.raw ||
+                        response.error.parameter.length > 0}}
+                        <li class="nav-btn" data-id="8" style="display: block"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                响应示例</a></li>
+                        {{else}}
+                        <li class="nav-btn" data-id="8" style="display:none"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                响应示例</a></li>
+                        <!-- <ul>-->
+                        <!--                            {{if response.success.raw || response.success.parameter.length > 0}}-->
+                        <!--                            <li class="nav-btn" data-id="9"><a href="javascript:;">成功响应示例</a></li>-->
+                        <!--                            {{/if}}-->
+                        <!---->
+                        <!--                            {{if response.error.raw || response.error.parameter.length > 0}}-->
+                        <!--                            <li class="nav-btn" data-id="10"><a href="javascript:;">失败响应示例</a></li>-->
+                        <!--                            {{/if}}-->
+                        <!--                        </ul> -->
+                        {{/if}}
+                    </script>
+                </ul>
+
+                <ul class="folder">
+                    <li class="cur nav-folder-btn" data-id="0"><a href="javascript:;">
+                            <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                            目录说明</a></li>
+                    <li class="nav-folder-btn" data-id="1"><a href="javascript:;">
+                            <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                            公共参数</a></li>
+                    <ul>
+                        <li class="nav-folder-btn" data-id="2"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                header参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="3"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                query参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="4"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                body参数及说明</a></li>
+                        <li class="nav-folder-btn" data-id="5"><a href="javascript:;">
+                                <img src="https://img.cdn.apipost.cn/v6/docs/img/arrow.svg" alt="">
+                                认证及说明</a></li>
+                        <!-- <li class="nav-folder-btn" data-id="4"><a href="javascript:;">预执行脚本</a></li>-->
+                        <!-- <li class="nav-folder-btn" data-id="5"><a href="javascript:;">后执行脚本</a></li>-->
+                    </ul>
+                </ul>
+
+            </div>
+            <script type="text/html" id="template-example-doc-tpl">
+                <h2 class="top" style="display: block">
+                    <div style="display: flex;align-items: center;">
+                        <span>{{name}}</span>
+                        {{if target_type != 'folder'}}
+                        <!-- <button title="复制当前文档/接口数据到剪贴板" class="CopyCurrentData" data-clipboard-action="copy" data-clipboard-text="" data-target_id="{{local_target_id}}">
+                          <img src="https://img.cdn.apipost.cn/v6/docs/img/copy.svg" alt="" style="margin-right:2px">
+                          复制接口
+                          <a  style="margin-left:2px" href="https://wiki.apipost.cn/document/00091641-1e36-490d-9caf-3e47cd38bcde/0b622ce8-68c0-4a00-88ba-287bdae336ad" target="_blank" rel="noopener noreferrer">
+                            <img style="cursor: pointer;" src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg"  alt="">
+                          </a>
+                        </button> -->
+                        <!-- <button class="opneApis" data-target_id="{{local_target_id}}">
+                          <img src="https://img.cdn.apipost.cn/v6/docs/img/open.svg" alt="">
+                          在工作台打开
+                        </button> -->
+                        <!-- <a href="https://wiki.apipost.cn/document/00091641-1e36-490d-9caf-3e47cd38bcde/0b622ce8-68c0-4a00-88ba-287bdae336ad" title="什么是复制接口？" target="_blank"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a> -->
+                        {{/if}}
+                    </div>
+                    <span class="metadata">创建人：{{create_users.create_user}} &nbsp;&nbsp;&nbsp;&nbsp; 最后更新：{{create_users.update_user}} &nbsp;&nbsp;&nbsp;&nbsp;更新时间：{{@dateFormat(update_dtime * 1000,'yyyy-MM-dd hh:mm:ss')}}</span>
+                </h2>
+                {{if target_type == 'folder'}}
+                <h3 class="title" style="{{request.description ? 'visibility: visible;':'visibility:hidden;height:0;margin:0;'}}" ><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/book.svg" alt="">
+                    </a> 目录说明 <i class="fa fa-angle-down"></i></h3>
+                {{if request.description}}
+                <div class="editor-preview desc markdown-section">
+                    {{@marked(request.description)}}
+                </div>
+                {{/if}}
+                {{else}}
+                <h3 class="title" style="{{request.description ? 'visibility: visible;':'visibility:hidden;height:0;margin:0;'}}" ><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/book.svg" alt="">
+                    </a> 接口说明 <i class="fa fa-angle-down"></i></h3>
+                {{if request.description}}
+                <div class="editor-preview desc markdown-section">
+                    {{@marked(request.description)}}
+                </div>
+                {{/if}}
+                {{/if}}
+                {{if (target_type == 'example' && is_doc == '0') || target_type == 'api'}}
+                <h3 class="title"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/info.svg" alt="">
+                    </a> 基本信息 <i class="fa fa-angle-down"></i></h3>
+                <ul class="editor-preview-info">
+                    <li><strong>接口状态：</strong> <code class="span" style="color: {{markColor}};">{{markName}}</code></li>
+                    <li><strong>接口URL：</strong> <code class="span">{{request.url ? request.url : 'url为空...'}}</code>
+                    </li>
+                    <li><strong>请求方式：</strong> <code class="span">{{method}}</code></li>
+                    <li><strong>Content-Type：</strong> <code class="span">{{request.body.mode}}</code></li>
+                </ul>
+
+                <h3 class="title" style="{{request.header.parameter.length > 0 || request.query.parameter.length > 0 || request.resful.parameter.length > 0 || request.body.parameter.length>0 ||request.body.raw !='' || (request?.auth?.type && request?.auth?.type != 'noauth') ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+                    </a> 请求参数 <i class="fa fa-angle-down"></i></h3>
+                {{if request.header.parameter.length > 0 || request.query.parameter.length > 0 || request.resful.parameter.length > 0 || request.body.parameter.length>0 ||request.body.raw !='' || (request?.auth?.type && request?.auth?.type != 'noauth')}}
+                <div class="markdown-request">
+                    <h4 class="title" style="{{request.header.parameter.length > 0? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Header参数及说明</h4>
+                    {{if request.header.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.header.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.query.parameter.length > 0 ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Query参数及说明</h4>
+                    {{if request.query.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+
+                            {{each request.query.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.resful.parameter.length ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> 路径参数及说明</h4>
+                    {{if request.resful.parameter.length > 0}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!--
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                -->
+                                <th>参数描述</th>
+                            </tr>
+
+                            {{each request.resful.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <!--
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{ request?.auth.type && request?.auth.type != 'noauth' ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> 认证及说明</h4>
+                    {{if request?.auth.type && request?.auth.type != 'noauth'}}
+                    <div>
+                        {{if request?.auth?.type == 'kv'}}
+                        <table class="auth">
+                            <tr>
+                                <td>认证类型：私密键值对</td>
+                                <td> 键： {{request?.auth?.kv?.key}}</td>
+                                <td> 值：{{request?.auth?.kv?.value}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                        {{if request.auth.type == 'basic'}}
+                        <table class="auth">
+                            <tr>
+                                <td>认证类型：Basic auth认证</td>
+                                <td>用户名： {{request?.auth?.basic?.username}}</td>
+                                <td>密码： {{request?.auth?.basic?.password}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                        {{if request?.auth?.type == 'bearer'}}
+                        <table class="auth">
+                            <tr>
+                                <td>认证类型：Bearer auth认证</td>
+                                <td>Token：{{request?.auth?.bearer?.key}}</td>
+                            </tr>
+                        </table>
+                        {{/if}}
+                    </div>
+                    {{/if}}
+
+                    <h4 class="title" style="{{request.body.parameter.length > 0 || request.body.raw !='' ? 'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> body参数及说明</h4>
+                    {{if request.body.parameter.length>0 ||request.body.raw !='' }}
+                    {{if request.body.mode == 'form-data' || request.body.mode == 'multipart/form-data' ||
+                    request.body.mode =='application/x-www-form-urlencoded' || request.body.mode=="urlencoded"}}
+                    <div>
+                        <table>
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <th>参数类型</th>
+                                <th>是否必填</th>
+                                <th>参数描述</th>
+                            </tr>
+                            {{if request.body.parameter.length > 0}}
+                            {{each request.body.parameter item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value }}
+                                    {{/if}}
+                                </td>
+                                <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td>
+                                <td>{{item.not_null == "1" ? '是' : '否'}}</td>
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                            {{else}}
+                            <tr>
+                                <td colspan="5" style="text-align:center">暂无数据</td>
+                            </tr>
+                            {{/if}}
+                        </table>
+                    </div>
+                    {{else}}
+                    <div class="editor-preview">
+                        <input type="hidden" id="request_body_raw_editor_input" value="{{request.body.raw}}">
+                        <pre id="request_body_raw_editor_json"><code class="hljs json">{{request.body.raw}}</code></pre>
+
+                        <!-- <pre><code class="hljs json">{{request.body.raw}}</code></pre> -->
+                    </div>
+                    {{if request.body.raw_para.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table>
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <!-- <th>是否必填</th> -->
+                            <th>参数描述</th>
+                        </tr>
+                        {{each request.body.raw_para item}}
+                        {{if item.key}}
+                        <tr>
+                            <td>{{@keyFormat(item.key)}}</td>
+                            <td>{{item.value == '' ? '-' : item.value }}</td>
+                            <td>{{item.field_type}}</td>
+                            <!-- <td>{{item.not_null == "1" ? '是' : '否'}}</td> -->
+                            <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                        </tr>
+                        {{/if}}
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                    <!--                    {{if request.event.pre_script != ''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 预执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{request.event.pre_script}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--                    {{/if}}-->
+                    <!--                    {{if request.event.test != ''}}-->
+                    <!--                    <h4 class="title"><a href="javascript:;" class="maodian"></a> 后执行脚本</h4>-->
+                    <!--                    <div class="editor-preview">-->
+                    <!--                        <pre><code class="hljs">{{request.event.test}}</code></pre>-->
+                    <!--                    </div>-->
+                    <!--                    {{/if}}-->
+
+                    {{/if}}
+                </div>
+                {{/if}}
+                <!--respond-->
+
+                <h3 class="title" style="{{response.success.raw || response.success.parameter.length > 0 || response.error.raw || response.error.parameter.length > 0 ? 'visibility: visible;':'visibility: hidden'}}"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+                    </a> 响应示例<i class="fa fa-angle-down"></i></h3>
+                {{if response.success.raw || response.success.parameter.length > 0 || response.error.raw || response.error.parameter.length > 0}}
+                <div class="markdown-response">
+                    {{if response.success.raw || response.success.parameter.length > 0}}
+                    <h4 ><a href="javascript:;" class="maodian"></a> 成功响应示例</h4>
+                    <div class="editor-preview">
+                        <input type="hidden" id="response_success_editor_input" value="{{response.success.raw}}">
+                        <pre id="response_success_editor_json"><code class=" json">{{response.success.raw}}</code></pre>
+                    </div>
+                    {{if response.success.parameter.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table class="response-parameter">
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <th>参数描述</th>
+                        </tr>
+                        {{each response.success.parameter item}}
+                        <tr>
+                            <td>{{@keyFormat(item.key)}}</td>
+                            <td>{{item.value == '' ? '-' : item.value }}</td>
+                            <td>{{item.field_type}}</td>
+                            <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                    {{if response.error.raw || response.error.parameter.length > 0}}
+                    <h4 ><a href="javascript:;" class="maodian"></a> 失败响应示例</h4>
+                    <div class="editor-preview">
+                        <input type="hidden" id="response_error_editor_input" value="{{response.error.raw}}">
+                        <pre id="response_error_editor_json">
+                            <code class="hljs json">{{response.error.raw}}</code>
+                        </pre>
+                    </div>
+                    {{if response.error.parameter.length > 0}}
+                    <h4><a href="javascript:;" class="maodian"></a> 字段描述</h4>
+                    <table class="response-parameter">
+                        <tr>
+                            <th>参数名</th>
+                            <th>示例值</th>
+                            <th>参数类型</th>
+                            <th>参数描述</th>
+                        </tr>
+                        {{each response.error.parameter item}}
+                        <tr>
+                            <td>{{@keyFormat(item.key)}}</td>
+                            <td>{{item.value == '' ? '-' : item.value }}</td>
+                            <td>{{item.field_type}}</td>
+                            <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                </div>
+                {{/if}}
+                {{else if target_type == 'folder'}}
+                <h3 class="title"><a href="javascript:;" class="maodian">
+                        <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+                    </a>公共参数<i class="fa fa-angle-down"></i></h3>
+                <div class="markdown-request">
+                    <h4 class="title" style="{{ request.header.length > 0 ?'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Header参数及说明</h4>
+                    {{if request.header.length > 0}}
+                    <div>
+                        <table class="header">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!-- <th>参数类型</th> -->
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.header item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value}}
+                                    {{/if}}
+                                </td>
+                                <!-- <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td> -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+                    <h4 class="title" style="{{ request.query.length > 0 ?'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Query参数及说明</h4>
+                    {{if request.query.length > 0}}
+                    <div>
+                        <table class="query">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!-- <th>参数类型</th> -->
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.query item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value}}
+                                    {{/if}}
+                                </td>
+                                <!-- <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td> -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+                    <h4 class="title" style="{{ request.body.length > 0 ?'visibility:visible':'visibility:hidden;height:0;margin:0;'}}"><a href="javascript:;" class="maodian"></a> Body参数及说明</h4>
+                    {{if request.body.length > 0}}
+                    <div>
+                        <table class="body">
+                            <tr>
+                                <th>参数名</th>
+                                <th>示例值</th>
+                                <!-- <th>参数类型</th> -->
+                                <th>参数描述</th>
+                            </tr>
+                            {{each request.body item}}
+                            {{if item.key}}
+                            <tr>
+                                <td>
+                                    {{if item.key_var}}
+                                    {{item.key_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.key}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.key}}
+                                    {{/if}}
+                                </td>
+                                <td>
+                                    {{if item.value_var}}
+                                    {{item.value_var}}
+                                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                                    <div class="vars_title">
+                                        变量{{item.value}} 生成
+                                    </div>
+                                    {{else}}
+                                    {{item.value == '' ? '-' : item.value}}
+                                    {{/if}}
+                                </td>
+                                <!-- <td>{{item.field_type == "" || item.field_type == "[]"? (typeof item.value) :
+                                    item.field_type}}
+                                </td> -->
+                                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+                            </tr>
+                            {{/if}}
+                            {{/each}}
+                        </table>
+                    </div>
+                    {{/if}}
+                    {{if request?.auth?.type != 'noauth' && request?.auth?.type}}
+                    <h4 class="title">认证及说明</h4>
+                    {{if request?.auth?.type == 'kv'}}
+                    <table class="auth">
+                        <tr>
+                            <td>认证类型：私密键值对</td>
+                            <td>键：{{request?.auth?.kv?.key}}</td>
+                            <td>值：{{request?.auth?.kv?.value}}</td>
+                        </tr>
+                    </table>
+                    {{/if}}
+                    {{if request.auth.type == 'basic'}}
+                    <table class="auth">
+                        <tr>
+                            <td>认证类型：Basic auth认证</td>
+                            <td>用户名：{{request?.auth?.basic?.username}}</td>
+                            <td>密码：{{request?.auth?.basic?.password}}</td>
+                        </tr>
+                    </table>
+                    {{/if}}
+                    {{if request?.auth?.type == 'bearer'}}
+                    <table class="auth">
+                        <tr>
+                            <td>认证类型：Bearer auth认证</td>
+                            <td>Token：{{request?.auth?.bearer?.key}}</td>
+                        </tr>
+                    </table>
+                    {{/if}}
+                    {{/if}}
+                </div>
+                <!--respond-->
+                {{/if}}
+                <div class="footer" style="text-align: center;margin: 35px 0;height: 50px">本文档由 <a href="https://www.apipost.cn/" target="_blank" style="color:#3a86ff">APIPOST接口调试与管理工具</a> 生成</div>
+            </script>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="golbal-env-tpl">
+    <h2 class="top">
+        <span>全局参数</span>
+        <span class="metadata">
+            创建时间：{{@dateFormat(create_dtime * 1000,'yyyy-MM-dd hh:mm:ss')}}
+            {{if expire_time != -1}}
+                <span style="color: #f44336; margin-left: 15px; font-weight: bold;"> 过期时间： {{@dateFormat(expire_time * 1000,'yyyy-MM-dd hh:mm:ss')}}</span>
+            {{/if}}
+        </span>
+
+    </h2>
+    <div class="editor-preview desc">
+    <!-- <p>本文档是CourseSelectionSystem的接口文档，以下为当前项目下的公共参数。</p> -->
+    </div>
+
+    <h3 class="title">
+        <a href="javascript:;" class="maodian">
+            <img src="https://img.cdn.apipost.cn/v6/docs/img/globals.svg" alt="">
+        </a>
+        全局参数
+        {{if vars?.request?.header?.length > 0 || vars?.request?.query?.length > 0 || vars?.request?.body?.length > 0 || vars?.auth?.type != 'noauth'}}
+        <i class="fa fa-angle-down"></i>
+        {{/if}}
+    </h3>
+    {{if vars?.request?.header?.length > 0 || vars?.request?.query?.length > 0 || vars?.request?.body?.length > 0 || vars?.auth?.type != 'noauth'}}
+    <div>
+        {{if vars.request.header.length > 0}}
+        <h4>Header参数及说明</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+            {{each vars.request.header item}}
+            <tr>
+                <td>
+                    {{if item.key_var}}
+                    {{item.key_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.key}} 生成
+                    </div>
+                    {{else}}
+                    {{item.key}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{if item.value_var}}
+                    {{item.value_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.value}} 生成
+                    </div>
+                    {{else}}
+                    {{item.value == '' ? '-' : item.value }}
+                    {{/if}}
+                </td>
+                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{if vars.request.query.length > 0}}
+        <h4>Query参数及说明</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+
+            {{each vars.request.query item}}
+            <tr>
+                <td>
+                    {{if item.key_var}}
+                    {{item.key_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.key}} 生成
+                    </div>
+                    {{else}}
+                    {{item.key}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{if item.value_var}}
+                    {{item.value_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.value}} 生成
+                    </div>
+                    {{else}}
+                    {{item.value == '' ? '-' : item.value }}
+                    {{/if}}
+                </td>
+                <td>
+                    <pre>{{item.description == '' ? '-' : item.description }}</pre>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+
+        {{if vars?.request?.body?.length > 0}}
+        <h4>Body参数及说明</h4>
+        <table>
+            <tr>
+                <th>参数名</th>
+                <th>参数值</th>
+                <th>参数描述</th>
+            </tr>
+            {{each vars?.request?.body item}}
+            <tr>
+                <td>
+                    {{if item.key_var}}
+                    {{item.key_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.key}} 生成
+                    </div>
+                    {{else}}
+                    {{item.key}}
+                    {{/if}}
+                </td>
+                <td>
+                    {{if item.value_var}}
+                    {{item.value_var}}
+                    <img src="https://img.cdn.apipost.cn/v6/docs/img/vars.svg" alt="">
+                    <div class="vars_title">
+                        变量{{item.value}} 生成
+                    </div>
+                    {{else}}
+                    {{item.value == '' ? '-' : item.value }}
+                    {{/if}}
+                </td>
+                <td><pre>{{item.description == '' ? '-' : item.description }}</pre></td>
+            </tr>
+            {{/each}}
+        </table>
+        {{/if}}
+        {{if vars?.auth?.type != 'noauth'}}
+        <h4>认证及说明</h4>
+        {{if vars?.auth?.type == 'kv'}}
+        <table>
+            <tr>
+                <td>认证类型：私密键值对</td>
+                <td>键：{{vars?.auth?.kv?.key}}</td>
+                <td>值：{{vars?.auth?.kv?.value}}</td>
+            </tr>
+        </table>
+        {{/if}}
+        {{if vars.auth.type == 'basic'}}
+        <table>
+            <tr>
+                <td>认证类型：Basic auth认证</td>
+                <td>用户名：{{vars?.auth?.basic?.username}}</td>
+                <td>密码：{{vars?.auth?.basic?.password}}</td>
+            </tr>
+        </table>
+        {{/if}}
+        {{if vars?.auth?.type == 'bearer'}}
+        <table>
+            <tr>
+                <td>认证类型：Bearer auth认证</td>
+                <td>Token：{{vars?.auth?.bearer?.key}}</td>
+            </tr>
+        </table>
+        {{/if}}
+        {{/if}}
+        <!--        {{if vars.script.pre_script != ""}}-->
+        <!--        <h4 class="title"><a href="javascript:;" class="maodian"></a> 预执行脚本</h4>-->
+        <!--        <div class="editor-preview">-->
+        <!--            <pre><code class="hljs">{{vars.script.pre_script}}</code></pre>-->
+        <!--        </div>-->
+        <!--        {{/if}}-->
+        <!--        {{if vars.script.test != "" }}-->
+        <!--        <h4 class="title"><a href="javascript:;" class="maodian"></a> 后执行脚本</h4>-->
+        <!--        <div class="editor-preview">-->
+        <!--            <pre><code class="hljs">{{vars.script.test}}</code></pre>-->
+        <!--        </div>-->
+        <!--        {{/if}}-->
+    </div>
+    {{else}}
+    <div style="text-align: center;display: block"><img src="https://img.cdn.apipost.cn/v6/docs/img/emptyglobals.svg" style="width: 100px;margin:20px auto 20px;">暂无参数</div>
+    {{/if}}
+
+    <div class="footer" style="text-align: center;margin: 35px 24px;height: 50px;">本文档由 <a href="https://www.apipost.cn/" target="_blank" style="color:#3a86ff">APIPOST接口调试与管理工具</a> 生成</div>
+</script>
+<script type="text/html" id="doc-head-tpl">
+    <div class="export">
+
+    </div>
+    <div class="user_photo">
+        <img src="{{portrait}}"alt="">
+    </div>
+</script>
+<script type="text/html" id="project-name-tpl">
+    <img src="https://img.cdn.apipost.cn/v6/docs/img/project.svg" alt="">
+    {{project_name}}
+</script>
+<script>
+    template.defaults.imports.marked = function (md) {
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            highlight: function (code) {
+                return hljs.highlight('javascript', code).value;
+            },
+            breaks: true
+        });
+        return marked(md).replace(/<pre>/g, "<pre class='hljs javascript'>");
+    }
+    function dateFormat(date, format) {
+        date = new Date(date);
+        var map = {
+            "M": date.getMonth() + 1, //月份
+            "d": date.getDate(), //日
+            "h": date.getHours(), //小时
+            "m": date.getMinutes(), //分
+            "s": date.getSeconds(), //秒
+            "q": Math.floor((date.getMonth() + 3) / 3), //季度
+            "S": date.getMilliseconds() //毫秒
+        };
+        format = format.replace(/([yMdhmsqS])+/g, function (all, t) {
+            var v = map[t];
+            if (v !== undefined) {
+                if (all.length > 1) {
+                    v = '0' + v;
+                    v = v.substr(v.length - 2);
+                }
+                return v;
+            } else if (t === 'y') {
+                return (date.getFullYear() + '').substr(4 - all.length);
+            }
+            return all;
+        });
+        return format;
+    };
+    template.defaults.imports.dateFormat = dateFormat;
+    function dragControllerDiv(resize, left, mid, box) {
+        for (let i = 0; i < resize.length; i++) {
+            // 鼠标按下事件
+            resize[i].onmousedown = function (e) {
+                //颜色改变提醒
+                resize[i].style.borderColor = "#9d9d9d";
+                var startX = e.clientX;
+                resize[i].left = resize[i].offsetLeft;
+                // 鼠标拖动事件
+                document.onmousemove = function (e) {
+                    var endX = e.clientX;
+                    var moveLen = resize[i].left + (endX - startX); // （endx-startx）=移动的距离。resize[i].left+移动的距离=左边区域最后的宽度
+                    var maxT = box[i].clientWidth - resize[i].offsetWidth; // 容器宽度 - 左边区域的宽度 = 右边区域的宽度
+
+                    if (moveLen < 300) moveLen = 300; // 左边区域的最小宽度为32px
+                    if (moveLen > maxT - 150) moveLen = maxT - 150; //右边区域最小宽度为150px
+
+                    resize[i].style.left = moveLen; // 设置左侧区域的宽度
+                    $('.target.title').css({ maxWidth: moveLen + 'px' })
+                    for (let j = 0; j < left.length; j++) {
+                        left[j].style.width = moveLen + "px";
+                        mid[j].style.width = box[i].clientWidth - moveLen - 10 + "px";
+                    }
+                };
+                // 鼠标松开事件
+                document.onmouseup = function (evt) {
+                    //颜色恢复
+                    resize[i].style.borderColor = "#d6d6d6";
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                    resize[i].releaseCapture && resize[i].releaseCapture(); //当你不在需要继续获得鼠标消息就要应该调用ReleaseCapture()释放掉
+                };
+                resize[i].setCapture && resize[i].setCapture(); //该函数在属于当前线程的指定窗口里设置鼠标捕获
+                return false;
+            };
+        }
+    }
+    function keyFormat(params) {
+        let arr = params.split('.');
+        let str = ''
+        for (let i = 0; i < arr.length - 1; i++) {
+            str += `<span style="color:#999">${arr[i]}.</span>`
+        }
+        str += arr[arr.length - 1];
+        return str;
+    }
+    template.defaults.imports.keyFormat = keyFormat;
+    let timer = null
+    let arr = {"id":401101,"project_id":2381216,"name":"CourseSelectionSystem","url":"a1a51ff1fc6ff70a","salt":"74d9556ee210aa25","password":"","env_id":"-1","create_time":1652347823,"target_id":2381216,"target_type":"project","expire_days":-1,"expire_time":-1,"project_name":"CourseSelectionSystem","portrait":"https:\/\/img.cdn.apipost.cn\/user\/default_profile_photo\/Vector-1.png","nick_name":"沉莫得男孩","publisher":"沉莫得男孩","pub_name":"CourseSelectionSystem","project":{"vars":{"request":{"header":[{"is_checked":"1","type":"Text","key":"","value":"","description":""}],"query":[{"is_checked":"1","type":"Text","key":"","value":"","description":""}],"cookie":[],"body":[{"is_checked":"1","type":"Text","key":"","value":"","description":""}]},"script":{"pre_script":"","test":""},"variable":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"methods":["POST","GET","PUT","PATCH","DELETE","COPY","HEAD","OPTIONS","LINK","UNLINK","PURGE","LOCK","UNLOCK","PROPFIND","VIEW"],"mark":[{"key":"developing","name":"开发中","color":"#3A86FF"},{"key":"complated","name":"已完成","color":"#2BA58F"},{"key":"modifying","name":"需修改","color":"#EC4646"}]}},"children":[{"local_target_id":"abf730b3-59a3-4a45-a060-177165e24c45","local_parent_id":"0","name":"公共接口","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652166468,"target_id":28796292,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"公共接口，无需token认证，用户均可访问","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"30070cc7-617c-4636-8724-28b309f89498","local_parent_id":"c68020fd-a31f-419f-952d-7d322a5edad3","name":"登录","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796344,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/login","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"Num","value":"111113","not_null":1,"description":"学号\/工号","field_type":"Text","__DATAKEY__":"3d4c533e-fb32-4cea-86af-ff7a88a7d97e","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Password","value":"123456","not_null":1,"description":"密码","field_type":"Text","__DATAKEY__":"8a969194-f2d0-4908-ac53-8b4ab85b2505","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Role","value":"1","not_null":1,"description":"角色码：按钮选择","field_type":"Text","__DATAKEY__":"01b83160-41cd-48f4-b447-c9bb04555452","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"fc0d573d-5ac8-45db-a8b2-e32e6d63b415","local_parent_id":"5c47ceb4-54a2-4a2d-d4cc-02d041fb6b28","name":"注销","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796345,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/logout","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"f0b016ff-b74a-4187-c28d-44a787481d9a","local_parent_id":"abf730b3-59a3-4a45-a060-177165e24c45","name":"管理员注册","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":3,"create_dtime":1616639819,"update_dtime":1652166589,"target_id":28796293,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"通过qq邮箱，注册","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"ce3f34b1-10d6-4e19-bef4-c94ce3b5e6f3","local_parent_id":"17efe283-c20f-4dea-f522-df9c6afe9499","name":"发送注册邮件","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796346,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/register\/sendmail","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"Num","value":"333333","not_null":1,"description":"学号\/工号","field_type":"Text","__DATAKEY__":"52309825-443a-4df2-a2eb-ec24b84b600b","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"UserMail","value":"1982452293@qq.com","not_null":1,"description":"用户邮箱","field_type":"Text","__DATAKEY__":"110320b2-df27-443f-b8d5-989d8128d5a5","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Role","value":"3","not_null":1,"description":"角色码：按钮选择","field_type":"Text","__DATAKEY__":"8d87fc55-ff38-4603-9c8c-d9773642472f","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"9ef8994d-761b-49ef-b581-7c8192c569d9","local_parent_id":"ae262cd7-10a6-4fc3-db10-2631d244dee5","name":"校验验证码","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796347,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/register\/vc_check","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"Num","value":"333333","not_null":1,"description":"学号\/工号","field_type":"Text","__DATAKEY__":"ab793095-1152-4175-9b75-f628de8f0c26","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"UserMail","value":"1982452293@qq.com","not_null":1,"description":"用户邮箱","field_type":"Text","__DATAKEY__":"0c58c5d7-70d2-4597-b12d-528bb2ce75e1","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Role","value":"3","not_null":1,"description":"角色码：按钮选择","field_type":"Text","__DATAKEY__":"4b08db18-580c-48e3-b879-6add9880631a","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"VC","value":"32265","not_null":1,"description":"验证码","field_type":"Text","__DATAKEY__":"26e32ba3-7c8d-4a5a-8468-28b98b3ae5fa","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"7ea56690-1339-4074-dd08-1359eedf47ef","local_parent_id":"4a60535a-8663-47ab-8bc9-4bbe5512c8fe","name":"注册管理员","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796348,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/register\/set_info","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"admin","__DATAKEY__":"53454430-5772-4bc7-96bb-a15c565d411b","key_var":"","value_var":""},{"description":"密码","is_checked":1,"key":"Password","type":"Text","not_null":"1","field_type":"","value":"123456","__DATAKEY__":"a95df3cf-607e-4595-afb9-218b5c7dc770","key_var":"","value_var":""},{"description":"管理员工号","is_checked":1,"key":"AdminNum","type":"Text","not_null":"1","field_type":"","value":"333333","__DATAKEY__":"c48e4427-81cf-4d3a-952c-32a26e9f20a3","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"男","__DATAKEY__":"716ef82c-df5c-43f7-a01b-a182276091e2","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"c648a496-8e9b-4bac-97b7-b2cc8af10377","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"64eb0a23-9034-4466-905c-5e7b537f50f0","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"ed75a1c4-5bfe-486f-b841-f79204f69e05","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"987f8796-b9b2-41b3-ccdb-5789523768de","local_parent_id":"abf730b3-59a3-4a45-a060-177165e24c45","name":"查询","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":4,"create_dtime":1616639819,"update_dtime":1652166468,"target_id":28796294,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"提供学生、教师、课程相关信息查询服务","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"79f4ed47-6581-4fba-fb64-79e6ea8944e6","local_parent_id":"40bebfff-edf4-4b64-ffa9-3a2c3b15eb19","name":"查询单个教师","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796349,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/getTeacher","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"","is_checked":1,"key":"TeachNum","type":"Text","not_null":"1","field_type":"","value":"222222","__DATAKEY__":"6afe6543-06a2-42fd-a96b-fdead9e71f91","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"119995e5-f6d4-4235-8f80-6e80fe6b4498","local_parent_id":"2f54f6e6-cfdd-4dff-bd43-65cb1d6ad146","name":"查询单个学生","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796350,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/getStudent","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"","is_checked":1,"key":"StuNum","type":"Text","not_null":"1","field_type":"","value":"111111","__DATAKEY__":"eeb8d505-ac66-4672-8407-49caed3cbf4f","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"380033b6-54a6-4226-df05-c7fd08ce12f1","local_parent_id":"987f8796-b9b2-41b3-ccdb-5789523768de","name":"查询单个课程信息","method":"GET","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":3,"create_dtime":1616639819,"update_dtime":1652166472,"target_id":28796303,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/getCourse","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"CourseNum","value":"01101","not_null":1,"description":"","field_type":"Text","__DATAKEY__":"ed696ed9-851d-4108-80c9-0013aae0a0dd","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"127.0.0.1:3000\/getCourse"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"3e16c557-c70f-40d6-c0dd-8cde3e749ab8","local_parent_id":"8d1e58d7-7e3e-4e94-b78f-2c81b3be9192","name":"查询课程列表","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796351,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/getCourses?pagesize=2&pagenum=1","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[{"description":"","is_checked":1,"key":"pagesize","type":"Text","not_null":"1","field_type":"Text","value":"2","key_var":"","value_var":""},{"description":"","is_checked":1,"key":"pagenum","type":"Text","not_null":"1","field_type":"Text","value":"1","key_var":"","value_var":""}]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"cfe5cba7-6b4d-4556-c370-33df506e7b81","local_parent_id":"abf730b3-59a3-4a45-a060-177165e24c45","name":"找回密码","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":5,"create_dtime":1616639819,"update_dtime":1652166548,"target_id":28796338,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"通过qq邮箱，找回密码","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"bef798a7-a2b1-4508-c089-c7079c9d06da","local_parent_id":"dc77db6d-105c-4816-9001-e5089721f968","name":"发送验证邮件","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796352,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/find_pwd\/sendmail","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"Num","value":"111111","not_null":1,"description":"学号\/工号","field_type":"Text","__DATAKEY__":"52309825-443a-4df2-a2eb-ec24b84b600b","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"UserMail","value":"1982452293@qq.com","not_null":1,"description":"用户邮箱","field_type":"Text","__DATAKEY__":"110320b2-df27-443f-b8d5-989d8128d5a5","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Role","value":"1","not_null":1,"description":"角色码：按钮选择","field_type":"Text","__DATAKEY__":"8d87fc55-ff38-4603-9c8c-d9773642472f","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"d88c4f3d-b28e-4bcb-da53-d55a6aa2993b","local_parent_id":"578cd1ef-5270-4a9c-86a0-13dfcac14f7b","name":"校验验证码","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796353,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/find_pwd\/vc_check","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"Num","value":"111111","not_null":1,"description":"学号\/工号","field_type":"Text","__DATAKEY__":"ab793095-1152-4175-9b75-f628de8f0c26","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"UserMail","value":"1982452293@qq.com","not_null":1,"description":"用户邮箱","field_type":"Text","__DATAKEY__":"0c58c5d7-70d2-4597-b12d-528bb2ce75e1","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Role","value":"1","not_null":1,"description":"角色码：按钮选择","field_type":"Text","__DATAKEY__":"4b08db18-580c-48e3-b879-6add9880631a","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"VC","value":"65389","not_null":1,"description":"验证码","field_type":"Text","__DATAKEY__":"26e32ba3-7c8d-4a5a-8468-28b98b3ae5fa","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"a421b767-dfc3-4f60-d29d-1ebb16e208a8","local_parent_id":"35c8edaa-2211-4788-ca97-8bfed0f3468c","name":"重置密码","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347873,"target_id":28796354,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/find_pwd\/reset_pwd","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"Password","value":"123456","not_null":1,"description":"新密码","field_type":"Text","__DATAKEY__":"c25d1691-51f8-4475-8d11-2bd04807c8cc","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]}]},{"local_target_id":"45fe3aaa-ee97-4894-ecc7-06b7db779af5","local_parent_id":"0","name":"学生接口","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":2,"create_dtime":1616639819,"update_dtime":1652166490,"target_id":28796304,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"学生相关功能接口","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"4a853261-ccbb-4763-8bae-8d0e24d92d46","local_parent_id":"f479a3fb-73d6-4c46-ba03-85a2a4f5dfe0","name":"编辑个人信息","method":"PUT","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796355,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/student\/editStudent","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"StuNum","value":"111113","not_null":1,"description":"学号，此参数不能由用户更改","field_type":"Text","__DATAKEY__":"94254454-d753-44e3-995c-445a9eec63c7","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Password","value":"123456","not_null":1,"description":"新密码","field_type":"Text","__DATAKEY__":"95f5e981-2718-48fd-b7b9-6162ba99390a","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"女","__DATAKEY__":"1e4c6981-2f50-43c9-9ca5-826d24caf248","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"049a05f3-303b-4098-8b76-18561bb7bd37","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"7e7bed1c-e844-4b5f-abf9-0047a1e8738a","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"0dce5e68-ceed-425c-be3d-cfe7b331e995","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"3695b586-22f0-4652-ef10-23cad706930f","local_parent_id":"71127271-7d1e-4054-de27-e648d3973837","name":"学生选课","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796356,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/student\/chooseCourse","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"StuNum","value":"111113","not_null":1,"description":"学号","field_type":"Text","__DATAKEY__":"e5ea369a-3756-41df-991e-99e6d9aebda8","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"CourseNum","value":"01102","not_null":1,"description":"课程码","field_type":"Text","__DATAKEY__":"536fc56f-52d7-49bd-a127-60b513e271f0","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"d25fe886-9293-4da0-9949-b62b47a2802f","local_parent_id":"417a8b90-adac-4cf6-934a-dd3439a5a468","name":"学生退课","method":"DELETE","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796357,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/student\/dropCourse","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"StuNum","value":"111113","not_null":1,"description":"学号","field_type":"Text","__DATAKEY__":"d180bbd2-be40-4e64-8290-1d749f04ec56","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"CourseNum","value":"01102","not_null":1,"description":"课程码","field_type":"Text","__DATAKEY__":"9eaf6a3a-788c-4bbc-b033-5b0956cdb684","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"ad2a3f81-e824-45d0-8d5a-22889f0f1edb","local_parent_id":"acce1e2c-b693-40a9-e95e-8ee322fb628a","name":"学生查询已选课程","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796358,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/student\/getChoseCourses","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"StuNum","value":"111113","not_null":1,"description":"学号","field_type":"Text","__DATAKEY__":"e6116bc4-63cf-4e7e-a637-abace6d0c137","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"d8b72b17-34a3-4649-b672-4bf6b8983fae","local_parent_id":"0","name":"教师接口","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":3,"create_dtime":1616639819,"update_dtime":1652166506,"target_id":28796309,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"教师相关功能接口","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"6db071dc-bfea-4fc7-82b6-cce0abe5ad3f","local_parent_id":"b6b0a2f7-75a1-4aca-d38e-c80218db6a0d","name":"编辑学生","method":"PUT","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796359,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/teacher\/editStudent","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"student3","__DATAKEY__":"7cc027fc-9c38-4bcd-b3b8-44132267881f","key_var":"","value_var":""},{"description":"学号","is_checked":1,"key":"StuNum","type":"Text","not_null":"1","field_type":"","value":"111111","__DATAKEY__":"34e22ebd-13ef-425f-b2f1-d5a735e41ef1","key_var":"","value_var":""},{"description":"年纪","is_checked":1,"key":"Grade","type":"Text","not_null":"1","field_type":"","value":"2021","__DATAKEY__":"66a48fa8-9610-401b-8934-65c01be71b2d","key_var":"","value_var":""},{"description":"班级","is_checked":1,"key":"Class","type":"Text","not_null":"1","field_type":"","value":"10","__DATAKEY__":"8eb07c5d-2406-4f2e-aea7-dbf59ae118d0","key_var":"","value_var":""},{"description":"专业","is_checked":1,"key":"Major","type":"Text","not_null":"1","field_type":"","value":"计算机","__DATAKEY__":"e04beff5-aa6b-494d-b55f-0a5f40abf52f","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"男","__DATAKEY__":"4355a2b0-d268-444e-b34e-4401fd0dc8d6","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"16d93e3b-e3eb-4b03-9061-a39b04bd592b","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"be958ee0-e586-47b5-8ac4-8ee2ff128448","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"82db6698-a16e-4df4-a58a-909ca45f78f1","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"de89371a-1608-4ce8-a155-35aedddd6b95","local_parent_id":"0304010f-c83d-4b07-efcf-12060ccb6357","name":"查询课程学生列表","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796360,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/teacher\/getCourseChoseStu?pagesize=1&pagenum=1","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"CourseNum","value":"01102","not_null":1,"description":"课程码","field_type":"Text","__DATAKEY__":"a8d44624-595c-411a-8631-51baa9e3aaad","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[{"description":"单页数量","is_checked":1,"key":"pagesize","type":"Text","not_null":"1","field_type":"Text","value":"1","__DATAKEY__":"8b62a2c4-20e4-44fb-91b2-7ef260d93b94","key_var":"","value_var":""},{"description":"页码","is_checked":1,"key":"pagenum","type":"Text","not_null":"1","field_type":"Text","value":"1","__DATAKEY__":"1f428347-0311-40a9-8ce1-02299dc4e648","key_var":"","value_var":""}]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"d3b2b9d2-d2c4-479c-d756-97de2f0c8b24","local_parent_id":"378251bf-7b5e-41c2-fc4e-ee528f6d68c5","name":"编辑教师","method":"PUT","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796343,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/teacher\/editTeacher","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"TeachNum","value":"222223","not_null":1,"description":"教师工号，此项不能由用户输入","field_type":"Text","__DATAKEY__":"725e14e7-a741-4fc6-9738-11a00783581f","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Password","value":"123456","not_null":1,"description":"新密码","field_type":"Text","__DATAKEY__":"5f2ab5b2-b194-4463-a8e9-5a655d789bc2","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"女","__DATAKEY__":"6a078659-79b0-4074-9f92-3dcf58091156","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"b5b862a3-72cb-461f-ad62-a87260a6ff67","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"697f0b91-6a63-4929-8db8-9f7c4c1992d6","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"4aa4f446-478b-42ea-b42a-a8ddb895c31e","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"1bfcb0ad-7bd0-4ce7-b145-c3293c9fc46e","local_parent_id":"0","name":"管理员接口","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":4,"create_dtime":1616639819,"update_dtime":1652166522,"target_id":28796313,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"管理员相关功能接口","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"8ba2852f-2c2c-4da7-9a1c-9e338c56cdd6","local_parent_id":"1bfcb0ad-7bd0-4ce7-b145-c3293c9fc46e","name":"学生","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":0,"create_dtime":1616639819,"update_dtime":1652166522,"target_id":28796316,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"管理员管理学生相关接口","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"01270baf-05ff-4d56-e572-9863e3160a2e","local_parent_id":"30f11c5c-306d-42bb-85fc-b1aa713ad0b7","name":"编辑学生","method":"PUT","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796361,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/editStudent","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"student2","__DATAKEY__":"55c8bd1c-a2c7-4525-9c38-0e0306391ca0","key_var":"","value_var":""},{"description":"密码","is_checked":1,"key":"Password","type":"Text","not_null":"1","field_type":"","value":"123456","__DATAKEY__":"aec20a22-9f26-4e9c-8a44-75c93fee61d9","key_var":"","value_var":""},{"description":"学号","is_checked":1,"key":"StuNum","type":"Text","not_null":"1","field_type":"","value":"111112","__DATAKEY__":"cc425579-3339-486d-8770-ac1b9fc7c3f2","key_var":"","value_var":""},{"description":"年级","is_checked":1,"key":"Grade","type":"Text","not_null":"1","field_type":"","value":"2020","__DATAKEY__":"dadca281-1f9c-4407-8408-c529463e13bd","key_var":"","value_var":""},{"description":"班级","is_checked":1,"key":"Class","type":"Text","not_null":"1","field_type":"","value":"10","__DATAKEY__":"5b888ee8-a0b0-4277-8777-92c152c6bcd7","key_var":"","value_var":""},{"description":"专业","is_checked":1,"key":"Major","type":"Text","not_null":"1","field_type":"","value":"计算机","__DATAKEY__":"47a8e53e-6bda-4fe6-b719-413c13aecad1","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"男","__DATAKEY__":"5f3f8a48-9db5-44a0-a362-4f5f106806f1","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"6aec7972-e03c-49b0-b59d-67ca978e3a40","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"7164a791-640b-48a8-bfd7-ef1120630a1d","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"c811d0d0-e340-43c5-8a0b-8975a0698ed2","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"d62a77bf-7bf9-4e53-a90a-948ef5a296db","local_parent_id":"0f0e1413-7e64-4387-b611-bfd960ab38ec","name":"添加学生","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796362,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/addStudent","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"student1","__DATAKEY__":"3317422f-1129-44ac-9dd6-6cca3e33597c","key_var":"","value_var":""},{"description":"密码","is_checked":1,"key":"Password","type":"Text","not_null":"1","field_type":"","value":"123456","__DATAKEY__":"eb822928-769d-46c3-9a4e-f8390c6310c7","key_var":"","value_var":""},{"description":"学号","is_checked":1,"key":"StuNum","type":"Text","not_null":"1","field_type":"","value":"111114","__DATAKEY__":"39659187-7d72-49c4-9f1a-f75d8153c9f8","key_var":"","value_var":""},{"description":"年级","is_checked":1,"key":"Grade","type":"Text","not_null":"1","field_type":"","value":"2021","__DATAKEY__":"65fe6178-c777-4626-ac9e-938369a80c7b","key_var":"","value_var":""},{"description":"班级","is_checked":1,"key":"Class","type":"Text","not_null":"1","field_type":"","value":"9","__DATAKEY__":"eb7df732-f868-47a7-9df1-302d9250986c","key_var":"","value_var":""},{"description":"专业","is_checked":1,"key":"Major","type":"Text","not_null":"1","field_type":"","value":"计算机","__DATAKEY__":"28ed9e57-bdd6-493f-b5b1-99e3c1b71149","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"男","__DATAKEY__":"630d95ec-2627-49fe-9880-3c144221219c","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"c88d0460-b967-4e48-b1a1-bed712ff8bc9","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"e5552a9c-9b07-43bb-b181-72f42bf4c852","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"d71fa49a-8c25-49df-acc8-9bac51075386","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"f10c1321-dd99-4568-df14-dad0813289e7","local_parent_id":"be5d97fd-e28b-4c51-d53b-c0419fe44acf","name":"删除学生","method":"DELETE","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796363,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/deleteStudent","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"学号","is_checked":1,"key":"StuNum","type":"Text","not_null":"1","field_type":"","value":"111114","__DATAKEY__":"1359b145-6a64-426f-8c51-88be1ca98c7a","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[{"is_checked":1,"type":"Text","key":"StuNum","value":"111112","not_null":1,"description":"","field_type":"Text","__DATAKEY__":"42050f15-30f4-4b5e-9a5a-3c53ad180088","key_var":"","value_var":""}]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"1fdad4c4-4153-4b24-c632-c71895cf185f","local_parent_id":"3fa5c63b-c12d-4ada-d4d8-43172be3bc8c","name":"查询学生列表","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796364,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/getStudents?pagesize=2&pagenum=1","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[{"description":"单页数量","is_checked":1,"key":"pagesize","type":"Text","not_null":"1","field_type":"","value":"2","__DATAKEY__":"21ebc95c-4d85-47a7-9c1c-75b59b89d88d","key_var":"","value_var":""},{"description":"页码","is_checked":1,"key":"pagenum","type":"Text","not_null":"1","field_type":"","value":"1","__DATAKEY__":"c94645d6-d544-47fb-bc4c-d27c1f3fd76b","key_var":"","value_var":""}]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"a498d53e-69e0-49da-a7ee-018948a3601f","local_parent_id":"1bfcb0ad-7bd0-4ce7-b145-c3293c9fc46e","name":"教师","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652166522,"target_id":28796314,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"管理员管理教师相关接口","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"ac1a011f-3b56-4474-8ff5-3b7db6560637","local_parent_id":"81798d47-7d7f-454d-d8b8-523bddc6c720","name":"添加教师","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796365,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/addTeacher","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"teacher4","__DATAKEY__":"33ba3446-6cee-4905-94ae-c65b411ea260","key_var":"","value_var":""},{"description":"密码","is_checked":1,"key":"Password","type":"Text","not_null":"1","field_type":"","value":"123456","__DATAKEY__":"33d86740-2e8e-4769-82c0-104e897eaafc","key_var":"","value_var":""},{"description":"教师工号","is_checked":1,"key":"TeachNum","type":"Text","not_null":"1","field_type":"","value":"222224","__DATAKEY__":"dc626499-250b-4cd3-ac85-513ae81e3e5a","key_var":"","value_var":""},{"description":"所属年级","is_checked":1,"key":"Grade","type":"Text","not_null":"1","field_type":"","value":"2021","__DATAKEY__":"8a19232c-58a6-47ea-a9ae-674152593a63","key_var":"","value_var":""},{"description":"职位","is_checked":1,"key":"Positions","type":"Text","not_null":"1","field_type":"","value":"辅导员","__DATAKEY__":"552ce9cf-0438-4d0d-8080-28fe80631fc7","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"男","__DATAKEY__":"6b3a16f2-e341-4d4c-8cec-765710961c38","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"de874aed-9998-4d45-8e39-808eaaca4274","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"04c8c6fc-2df5-4e76-bc6d-2445853a2c17","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"f04326d9-f4af-4abc-ac13-09d5b734f7d5","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"c5f9921d-51d6-44ad-f1cc-a01aed8fc7c5","local_parent_id":"3eebce3e-ff52-4a9a-a72f-e095be107bd3","name":"删除教师","method":"DELETE","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796366,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/deleteTeacher","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"教师工号","is_checked":1,"key":"TeachNum","type":"Text","not_null":"1","field_type":"","value":"222224","__DATAKEY__":"ee7bbd2e-bee9-4a0c-af83-955be9a7783b","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"2d530769-6e8b-4bb4-8e9f-20354f957fb0","local_parent_id":"3e590629-ea03-4a05-be49-6e88a0e15f7c","name":"编辑教师","method":"PUT","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796367,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/editTeacher","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"teaher2","__DATAKEY__":"a26e91e2-7a8f-4c07-9f2d-b5c1427b7aa0","key_var":"","value_var":""},{"description":"密码","is_checked":1,"key":"Password","type":"Text","not_null":"1","field_type":"","value":"123456","__DATAKEY__":"80b69fbf-6869-4ccf-bc39-3490fa0be234","key_var":"","value_var":""},{"description":"教师工号","is_checked":1,"key":"TeachNum","type":"Text","not_null":"1","field_type":"","value":"222223","__DATAKEY__":"994e250b-5a7d-4fd6-864c-72ee95b8df7e","key_var":"","value_var":""},{"description":"所属年级","is_checked":1,"key":"Grade","type":"Text","not_null":"1","field_type":"","value":"2021","__DATAKEY__":"873256a3-04b5-4228-8429-b8fea4a84e42","key_var":"","value_var":""},{"description":"职位","is_checked":1,"key":"Positions","type":"Text","not_null":"1","field_type":"","value":"高数教师","__DATAKEY__":"92ad413b-2663-4948-b0c8-84714415392f","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"男","__DATAKEY__":"94c9b389-2dd4-404e-b308-1db4fbc9c27d","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"77dd8309-9f5b-437f-8f9d-620b620cde1f","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"9d7e178d-1977-4331-987a-8df9951a006a","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"946476dd-0265-4dda-b40e-ac97ad95bc0b","key_var":"","value_var":""},{"description":"角色码","is_checked":1,"key":"Role","type":"Text","not_null":"1","field_type":"","value":"2","__DATAKEY__":"9b01f244-637b-4214-95fb-a037163d9c0f","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"53061a69-e376-4f62-ddb7-22a3aed183f1","local_parent_id":"bfd9a60a-5dfc-409a-bb83-cb04b846cbc0","name":"查询教师列表","method":"GET","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796368,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/getTeachers?pagesize=2&pagenum=1","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[{"description":"单页数量","is_checked":1,"key":"pagesize","type":"Text","not_null":1,"field_type":"","value":"2","__DATAKEY__":"564d5454-3e44-40a1-8017-8323a234a926","key_var":"","value_var":""},{"description":"页码","is_checked":1,"key":"pagenum","type":"Text","not_null":1,"field_type":"","value":"1","__DATAKEY__":"c4aae713-f97a-4133-82af-124977f2bc2a","key_var":"","value_var":""}]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"3aa82abb-1089-4c74-d86c-8276d2d1f8eb","local_parent_id":"1bfcb0ad-7bd0-4ce7-b145-c3293c9fc46e","name":"管理员","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":2,"create_dtime":1616639819,"update_dtime":1652166522,"target_id":28796317,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"管理员自身相关接口","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"f2d8ec61-bc57-4af6-a076-1ceb1bfb1a33","local_parent_id":"f74c30c5-7ffb-429b-c6ec-5aece6ca2449","name":"添加管理员","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796369,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/addAdministrator","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"admin4","__DATAKEY__":"53454430-5772-4bc7-96bb-a15c565d411b","key_var":"","value_var":""},{"description":"密码","is_checked":1,"key":"Password","type":"Text","not_null":"1","field_type":"","value":"123456","__DATAKEY__":"a95df3cf-607e-4595-afb9-218b5c7dc770","key_var":"","value_var":""},{"description":"管理员工号","is_checked":1,"key":"AdminNum","type":"Text","not_null":"1","field_type":"","value":"333334","__DATAKEY__":"c48e4427-81cf-4d3a-952c-32a26e9f20a3","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"男","__DATAKEY__":"716ef82c-df5c-43f7-a01b-a182276091e2","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"c648a496-8e9b-4bac-97b7-b2cc8af10377","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"64eb0a23-9034-4466-905c-5e7b537f50f0","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"ed75a1c4-5bfe-486f-b841-f79204f69e05","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"6b225466-a217-4aff-9fac-7ff14502b4dd","local_parent_id":"c30f883f-6c1e-4294-f386-20de4b8ceed7","name":"删除管理员","method":"DELETE","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796370,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/deleteAdministrator","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"管理员工号","is_checked":1,"key":"AdminNum","type":"Text","not_null":"1","field_type":"","value":"333334","__DATAKEY__":"074995fd-557f-4148-824a-86df3c788ef0","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"5bf4fbe9-702a-42ea-e59f-6049df76f86c","local_parent_id":"3aa82abb-1089-4c74-d86c-8276d2d1f8eb","name":"编辑管理员","method":"PUT","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":2,"create_dtime":1616639819,"update_dtime":1652347792,"target_id":28796323,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/editAdministrator","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"姓名","is_checked":1,"key":"Name","type":"Text","not_null":"1","field_type":"","value":"admin4","__DATAKEY__":"26cb3853-7fc9-4924-a926-760c04e41381","key_var":"","value_var":""},{"description":"密码","is_checked":1,"key":"Password","type":"Text","not_null":"1","field_type":"","value":"123456","__DATAKEY__":"c9040bd5-a852-4ed6-b2f7-c3b05413d294","key_var":"","value_var":""},{"description":"管理员工号","is_checked":1,"key":"AdminNum","type":"Text","not_null":"1","field_type":"","value":"333334","__DATAKEY__":"85e3b3cd-488f-4c3c-b331-c0c955ec254e","key_var":"","value_var":""},{"description":"性别","is_checked":1,"key":"Sex","type":"Text","not_null":"1","field_type":"","value":"女","__DATAKEY__":"de011d19-9c4f-4038-9d0b-4a29199a3689","key_var":"","value_var":""},{"description":"身份证","is_checked":1,"key":"IdCard","type":"Text","not_null":"1","field_type":"","value":"500102200205148694","__DATAKEY__":"5686d6ca-d6b7-4a60-baa8-fa8e29535eca","key_var":"","value_var":""},{"description":"电话","is_checked":1,"key":"Phone","type":"Text","not_null":"1","field_type":"","value":"13896764180","__DATAKEY__":"a2dcf2a4-5589-4971-9912-4771104d9404","key_var":"","value_var":""},{"description":"角色码","is_checked":1,"key":"Role","type":"Text","not_null":"1","field_type":"","value":"3","__DATAKEY__":"c005df68-fe17-4772-93e8-719184b5a73e","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Email","value":"1982452293@qq.com","not_null":1,"description":"邮箱","field_type":"Text","__DATAKEY__":"c3e21e32-7828-40f8-8681-dd1238a12edb","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"127.0.0.1:3000\/administrator\/editAdministrator"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"12cad394-b9ff-4c65-ab73-4581ce3a8091","local_parent_id":"3aa82abb-1089-4c74-d86c-8276d2d1f8eb","name":"查询管理员列表","method":"GET","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":3,"create_dtime":1616639819,"update_dtime":1652347793,"target_id":28796331,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/getAdministrators?pagesize=2&pagenum=1","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[{"description":"单页数量","is_checked":1,"key":"pagesize","type":"Text","not_null":1,"field_type":"","value":"2","__DATAKEY__":"de5652ec-18b9-45ea-b02a-077d18399310","key_var":"","value_var":""},{"description":"页码","is_checked":1,"key":"pagenum","type":"Text","not_null":1,"field_type":"","value":"1","__DATAKEY__":"afe3a8bf-3546-4206-840b-11b200dc4945","key_var":"","value_var":""}]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"127.0.0.1:3000\/administrator\/getAdministrators?pagesize=2&pagenum=1"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"f4c24d46-991b-4806-83d1-32daba3ebd0d","local_parent_id":"3aa82abb-1089-4c74-d86c-8276d2d1f8eb","name":"查询单个管理员","method":"GET","mark":"developing","is_doc":0,"target_type":"api","status":1,"sort":4,"create_dtime":1616639819,"update_dtime":1652347790,"target_id":28796321,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/getAdministrator","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"管理员工号","is_checked":1,"key":"AdminNum","type":"Text","not_null":"1","field_type":"","value":"333333","__DATAKEY__":"27f04dd1-468e-4460-aff4-ea24587bf641","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]},"url_var":"127.0.0.1:3000\/administrator\/getAdministrator"},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]},{"local_target_id":"f5dee319-61b8-4d44-a04d-dd0bc7ad7ffe","local_parent_id":"1bfcb0ad-7bd0-4ce7-b145-c3293c9fc46e","name":"课程","method":"POST","mark":"developing","is_doc":0,"target_type":"folder","status":1,"sort":3,"create_dtime":1616639819,"update_dtime":1652166522,"target_id":28796315,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"description":"管理员管理课程相关接口","header":[],"query":[],"body":[],"auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":""},"basic":{"username":"","password":""}}},"script":{"pre_script":"","test":""},"children":[{"local_target_id":"aeff3119-03f0-4efc-b9e4-b0979fc973a4","local_parent_id":"15d0d0dd-d443-4260-cb84-7185b6671ea6","name":"创建课程","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796371,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/addCourse","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"课程名称","is_checked":1,"key":"CourseName","type":"Text","not_null":"1","field_type":"","value":"高数","__DATAKEY__":"cf7176d8-de76-4825-b9f4-b3f60d0a7f17","key_var":"","value_var":""},{"description":"课程码","is_checked":1,"key":"CourseNum","type":"Text","not_null":"1","field_type":"","value":"01102","__DATAKEY__":"229e97ed-7911-470f-b0d6-80e754c7e25a","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Grade","value":"2021","not_null":1,"description":"开放年级","field_type":"Text","__DATAKEY__":"1aa5870e-a505-4fc3-be3b-3650927d3a8c","key_var":"","value_var":""},{"description":"学时","is_checked":1,"key":"Period","type":"Text","not_null":"1","field_type":"","value":"18","__DATAKEY__":"ec16ba07-e921-4ac0-9c50-383fae10dd15","key_var":"","value_var":""},{"description":"学分","is_checked":1,"key":"Score","type":"Text","not_null":"1","field_type":"","value":"5","__DATAKEY__":"bccf328f-76ae-4466-89f0-d128b61215e8","key_var":"","value_var":""},{"description":"教师","is_checked":1,"key":"Teacher","type":"Text","not_null":"1","field_type":"","value":"teacher1","__DATAKEY__":"86145805-7033-46c3-bbab-a0ca747f3974","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"TeachNum","value":"222221","not_null":1,"description":"教师工号","field_type":"Text","__DATAKEY__":"2bf3c742-e563-4298-84bb-53cf456470e7","key_var":"","value_var":""},{"description":"总人数","is_checked":1,"key":"TotalStu","type":"Text","not_null":"1","field_type":"","value":"105","__DATAKEY__":"e10cdd4d-8976-41c0-baed-8eff724357d9","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"LeftStu","value":"105","not_null":1,"description":"剩余人数","field_type":"Text","__DATAKEY__":"ca692791-c1ad-4213-b82d-c3ed1843e3ca","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Day","value":"2","not_null":1,"description":"上课星期","field_type":"Text","__DATAKEY__":"6e1f125a-3b3f-44f1-ba76-d7d3e9a14b47","key_var":"","value_var":""},{"description":"上课时间段","is_checked":1,"key":"Time","type":"Text","not_null":"1","field_type":"","value":"1","__DATAKEY__":"11572da7-9d88-4a68-8e7a-45781eead5d5","key_var":"","value_var":""},{"description":"课程描述","is_checked":1,"key":"Description","type":"Text","not_null":"1","field_type":"","value":"这是高等数学","__DATAKEY__":"13eebf13-3303-4a6a-8d48-fb33b0ac7112","key_var":"","value_var":""},{"description":"课程状态：1可变，2不可变","is_checked":1,"key":"State","type":"Text","not_null":"1","field_type":"","value":"2","__DATAKEY__":"0732c882-7893-4ba0-9adc-b57f98594f37","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"9ba1d3c3-599d-42bd-a114-11c32368a40e","local_parent_id":"b5757c90-3437-45c4-a1f3-1d09b073caeb","name":"删除课程","method":"DELETE","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796372,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/deleteCourse","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"课程码","is_checked":1,"key":"CourseNum","type":"Text","not_null":"1","field_type":"","value":"01101","__DATAKEY__":"e5f8d88a-0762-4068-8f9e-5214cabfe361","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"67f04bfc-2389-4e18-afea-945c296df3fb","local_parent_id":"827a675e-bd12-41a1-e82f-01104d5e3e71","name":"编辑课程","method":"PUT","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796373,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/editCourse","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"description":"课程名称","is_checked":1,"key":"CourseName","type":"Text","not_null":"1","field_type":"","value":"高数","__DATAKEY__":"9f518a21-a372-4ddb-a8a1-8507dd971fd9","key_var":"","value_var":""},{"description":"课程码","is_checked":1,"key":"CourseNum","type":"Text","not_null":"1","field_type":"","value":"01101","__DATAKEY__":"545c6d38-b39b-4f1c-b653-a339582d425b","key_var":"","value_var":""},{"description":"学时","is_checked":1,"key":"Period","type":"Text","not_null":"1","field_type":"","value":"18","__DATAKEY__":"8cbfa6bb-219a-4ec9-972b-ad290b21ece5","key_var":"","value_var":""},{"description":"学分","is_checked":1,"key":"Score","type":"Text","not_null":"1","field_type":"","value":"5","__DATAKEY__":"389512be-1300-42e0-84c8-b2941baebd12","key_var":"","value_var":""},{"description":"教师","is_checked":1,"key":"Teacher","type":"Text","not_null":"1","field_type":"","value":"teacher1","__DATAKEY__":"38910001-962c-4ff2-8a15-6957c5e3f067","key_var":"","value_var":""},{"description":"人数","is_checked":1,"key":"PeoNum","type":"Text","not_null":"1","field_type":"","value":"105","__DATAKEY__":"d55fa5db-8d75-4ca3-85ee-fdf522d50768","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"Day","value":"2","not_null":1,"description":"上课星期","field_type":"Text","__DATAKEY__":"0d865ff3-197a-4411-9ed7-e936d5a51bb2","key_var":"","value_var":""},{"description":"上课时段","is_checked":1,"key":"Time","type":"Text","not_null":"1","field_type":"","value":"2","__DATAKEY__":"83e824ec-d5c4-4c26-920e-91bac0962659","key_var":"","value_var":""},{"description":"课程描述","is_checked":1,"key":"Description","type":"Text","not_null":"1","field_type":"","value":"这是高等数学","__DATAKEY__":"1456cb21-1e3b-479a-836d-5aeaa48f02df","key_var":"","value_var":""},{"description":"课程状态：1可变，2不可变","is_checked":1,"key":"State","type":"Text","not_null":"1","field_type":"","value":"2","__DATAKEY__":"ecb32d95-3855-4c55-b280-67e53441a9cf","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"f8e62750-bdb5-46de-a90b-36b1253bf4d8","local_parent_id":"eafdfb5f-d089-48d9-fe90-e06009ba2ada","name":"开放课程","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796374,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/openCourse","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"CourseNum","value":"01102","not_null":1,"description":"课程码","field_type":"Text","__DATAKEY__":"6ae58d4b-ab04-497f-b74b-014c8ddcf55a","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"b4cf51e5-a69d-4723-8c1d-f57de42cb4f1","local_parent_id":"d566dd5f-3ff1-415c-eb9e-2c797c748c10","name":"关闭课程","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796375,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/closeCourse","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"CourseNum","value":"01102","not_null":1,"description":"课程码","field_type":"Text","__DATAKEY__":"89ccb3f9-5b79-4cdc-b5f1-0812a0220746","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"25e62c74-5a98-4820-8e02-be75ff48dc05","local_parent_id":"313d3165-0b9e-45de-a2d1-c8c8b189af72","name":"删除课程学生","method":"DELETE","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796376,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/dropCourseStu","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"StuNum","value":"111111","not_null":1,"description":"学号","field_type":"Text","__DATAKEY__":"d180bbd2-be40-4e64-8290-1d749f04ec56","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"CourseNum","value":"01102","not_null":1,"description":"课程码","field_type":"Text","__DATAKEY__":"9eaf6a3a-788c-4bbc-b033-5b0956cdb684","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}},{"local_target_id":"0119ac4e-341b-4894-ed99-eb0bf81b7e0c","local_parent_id":"d3121a3d-7c6f-48d8-9463-02029d46ff03","name":"添加课程学生","method":"POST","mark":"developing","is_doc":0,"target_type":"example","status":1,"sort":1,"create_dtime":1616639819,"update_dtime":1652347775,"target_id":28796377,"create_users":{"create_user":"沉莫得男孩","update_user":"沉莫得男孩"},"request":{"url":"127.0.0.1:3000\/administrator\/addCourseStu","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"**********"},"basic":{"username":"","password":""}},"body":{"mode":"form-data","parameter":[{"is_checked":1,"type":"Text","key":"CourseNum","value":"01102","not_null":1,"description":"课程码","field_type":"Text","__DATAKEY__":"bfc08369-15d4-4df4-9554-540f1affe413","key_var":"","value_var":""},{"is_checked":1,"type":"Text","key":"StuNum","value":"111111","not_null":1,"description":"学号","field_type":"Text","__DATAKEY__":"781bd967-8f26-4d69-9f1c-ae53b5c6a44b","key_var":"","value_var":""}],"raw":"","raw_para":[]},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}},"response":{"success":{"raw":"","parameter":[]},"error":{"raw":"","parameter":[]}}}]}]}]};
+    function GetUrlQuery(uri) {
+        let url = '';
+        if (typeof uri === 'undefined') {
+            url = window.location.search;
+        } else {
+            url = `?${uri.split('?')[1]}`;
+        }
+        const theRequest = {};
+        if (url.indexOf('?') !== -1) {
+            const str = url.substr(1);
+            const strs = str.split('&');
+            for (let i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split('=')[0]] = unescape(strs[i].split('=')[1]);
+            }
+        }
+        return theRequest;
+    };
+
+    function findFatherDom(el) {
+        if (el.parent().parent().children(":first").hasClass('folder')) {
+            el.parent().parent().show()
+            console.log(el.parent().parent());
+            el.parent().parent().children().show()
+            el.parent().parent().children(":first").find('.folder_select').removeClass('right').addClass('down')
+            el.parent().parent().children(":first").nextAll('.folder').find('folder_select').removeClass('down').addClass('right')
+            findFatherDom(el.parent().prev())
+        } else {
+            el.parent().children().show()
+            return
+        }
+    }
+    window.onload = function () {
+        // const { url, salt } = GetUrlQuery();
+        const head_obj = {
+            portrait: arr.portrait,
+        }
+        let head_html = template('doc-head-tpl', head_obj);
+
+        $('.doc-head .container').html(head_html)
+        let _html = template('template-target-sidebar-list-tpl', {
+            list: arr.children
+        });
+
+        $('.new').html(_html)
+        let project_name_html = template('project-name-tpl', {
+            project_name: arr.project_name
+        });
+        $('.box-first .title').html(project_name_html)
+
+        $('.target.folder').find('.folder_select').removeClass('down').addClass('right')
+        $('.target.folder').nextAll().hide()
+        let urlLink = window.location.href;
+        let id = urlLink.split('#')[1] ? urlLink.split('#')[1] : '001'
+        if ($(`.target[data-target_id="${id}"]`).length > 0) {
+            if (id != '001') {
+                findFatherDom($(`.target[data-target_id="${id}"]`))
+            }
+
+            $(`.target[data-target_id="${id}"]`).trigger('click')
+        } else {
+            location.href = urlLink.split('#')[0] + "#001"
+            return
+        }
+        var resize = document.getElementsByClassName("bar");
+        var left = document.getElementsByClassName("box-first");
+        var mid = document.getElementsByClassName("box-third");
+        var box = document.getElementsByClassName("box");
+        console.log(123434);
+        dragControllerDiv(resize, left, mid, box);
+        $('.target.folder').find('.folder_select').removeClass('down').addClass('right')
+        $('.target.folder').nextAll().hide()
+
+    }
+    $('.body').show()
+    $(document).on('click', '.target', function () {
+        let _local_target_id = $(this).attr('data-target_id');
+        let urlLink = window.location.href.split('#')[0] + '#' + _local_target_id;
+
+        const { url, salt } = GetUrlQuery();
+        const token = localStorage.getItem(`token${url}`);
+        history.replaceState(null, null, urlLink)
+        console.log(url);
+
+        $('.target').each((i, el) => {
+            $(el).removeClass('active')
+        })
+        if ($(this).attr('data-type') == 'folder') {
+            $('.box-nav').show()
+            $(this).nextAll().show()
+            $(this).find('.folder_select').removeClass('right').addClass('down')
+            $('.box-nav .folder').show()
+            $('.box-nav .api').hide()
+        } else if ($(this).attr('data-type') == 'example' || $(this).attr('data-type') == 'api') {
+            $('.box-nav').show()
+            $('.box-nav .api').show()
+            $('.box-nav .folder').hide()
+        } else {
+            $('.box-nav').hide()
+        }
+
+        $(this).addClass('active')
+        // if (_local_target_id == 001 || !_local_target_id) {
+        //   return;
+        // }
+        let newdata = JSON.parse(JSON.stringify(arr))
+        let LevelArr = []
+
+        function levelTree(arr1, newarr) {
+            arr1.forEach(item => {
+                if (item.children && item.children.length > 0) {
+                    newarr.push(item)
+                    levelTree(item.children, newarr)
+                } else {
+                    newarr.push(item)
+                }
+            })
+        }
+
+        levelTree(newdata.children, LevelArr)
+        LevelArr.forEach(item => {
+            if (item.local_target_id == _local_target_id) {
+                if (item.target_type == 'example' || item.target_type == 'api') {
+                    switch (item.request.body.mode) {
+                        case "none":
+                            break;
+                        case "form-data":
+                            item.request.body.mode = "multipart/form-data";
+                            break;
+                        case "urlencoded":
+                            item.request.body.mode = "application/x-www-form-urlencoded";
+                            break;
+                        case "json":
+                            item.request.body.mode = "application/json";
+                            break;
+                        case "xml":
+                            item.request.body.mode = "application/xml";
+                            break;
+                        case "javascript":
+                            item.request.body.mode = "application/javascript";
+                            break;
+                        case "plain":
+                            item.request.body.mode = "text/plain";
+                            break;
+                        case "html":
+                            item.request.body.mode = "text/html";
+                            break;
+                    }
+                    $('.template-nav-menu').html(template('template-nav-menu-tpl', item));
+                    if (item.target_type != 'folder') {
+                        let _export_data = new ClipboardJS('.CopyCurrentData', {
+                            text: function (trigger) {
+                                return trigger.getAttribute('data-clipboard-text');
+                            }
+                        });
+                        console.log(_export_data);
+                        _export_data.on('success', function (e) {
+                            $('.CopyCurrentData').text('已复制').addClass('success');
+                            e.clearSelection();
+                        });
+                        _export_data.on('error', function (e) {
+                            console.log('失败');
+                        });
+                    }
+                }
+                arr?.project?.vars?.mark.forEach((it) => {
+                    if (it.key == item.mark) {
+                        if (it.color == '') {
+                            if (item.mark == 'developing') {
+                                item.markName = '开发中'
+                                item.markColor = 'rgb(58, 134, 255)'
+                            }
+                            if (item.mark == 'complated') {
+                                item.markName = '已完成'
+                                item.markColor = 'rgb(46, 196, 182)'
+                            }
+                            if (item.mark == 'modifying') {
+                                item.markName = '需修改'
+                                item.markColor = 'rgb(236, 70, 70)'
+                            }
+                        } else {
+                            item.markName = it.name
+                            item.markColor = it.color
+                        }
+                    }
+                })
+                let _html = template('template-example-doc-tpl', item);
+                $('.preview-markdown').html(_html)
+                if (item.target_type == 'folder') {
+                    const folderData = { ...item }
+                    if (item.target_type == 'folder') {
+                        folderData?.request?.header?.forEach((it, index) => !it.key && folderData.request?.header.splice(index, 1))
+                        folderData?.request?.query?.forEach((it, index) => !it.key && folderData.request?.query.splice(index, 1))
+                        folderData?.request?.body?.forEach((it, index) => !it.key && folderData.request?.body.splice(index, 1))
+                    }
+                    let _html = template('template-example-doc-tpl', folderData);
+                    if ($('table.header tr').length <= 1) {
+                        $('table.header').parent().hide()
+                        $('table.header').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="1"]').hide()
+                        // $('table.header tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.query tr').length <= 1) {
+                        $('table.query').parent().hide()
+                        $('table.query').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="2"]').hide()
+                        // $('table.query tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.body tr').length <= 1) {
+                        $('table.body').parent().hide()
+                        $('table.body').parent().prev().hide()
+                        $('.nav-folder-btn[data-id="3"]').hide()
+                        // $('table.body tr').after('<tr><td colspan="4" style="text-align:center">暂无数据</td></tr>')
+                    }
+                    if ($('table.header tr').length <= 1 && $('table.query tr').length <= 1 && $('table.body tr').length <= 1) {
+                        $('table.header').parents('.markdown-request').prev().hide()
+                        $('.box-nav .nav-folder-btn[data-id="0"]').hide()
+                        $('.preview-markdown .markdown-request').after('<div style="overflow: hidden;text-align: center;height: 100%;"><img src="https://img.cdn.apipost.cn/v6/docs/img/empty.svg" style="width:100px;margin: 70px auto 20px;;">暂无参数</div>')
+
+                    }
+                    hljs.initHighlighting();
+                } else {
+                    let _export_data = new ClipboardJS('.CopyCurrentData', {
+                        text: function (trigger) {
+                            return trigger.getAttribute('data-clipboard-text');
+                        }
+                    });
+                    console.log(_export_data);
+                    _export_data.on('success', function (e) {
+                        $('.CopyCurrentData').text('已复制').addClass('success');
+                        e.clearSelection();
+                    });
+                    _export_data.on('error', function (e) {
+                        console.log('失败');
+                    });
+                    $('.CopyCurrentData').attr('data-clipboard-text', JSON.stringify(item));
+                }
+                try {
+                    let obj = item.request.body.raw_para.map(item => {
+                        let arr = item.key.split('.')
+                        item.newKey = arr[arr.length - 1]
+                        return item
+                    })
+
+                    let editor = new JsonEditor('#request_body_raw_editor_json', JSON5.parse($('#request_body_raw_editor_input').val()), {}, obj).load(JSON5.parse($('#request_body_raw_editor_input').val()), obj)
+                } catch (e) {
+                    console.log(e);
+                }
+                // 成功响应示例
+                try {
+                    let obj = item.response.success.parameter.map(item => {
+                        let arr = item.key.split('.')
+                        item.newKey = arr[arr.length - 1]
+                        return item
+                    })
+                    let editor = new JsonEditor('#response_success_editor_json', JSON5.parse($('#response_success_editor_input').val()), {}, obj).load(JSON5.parse($('#response_success_editor_input').val()), obj)
+                } catch (e) { console.log(e); }
+                // 失败响应示例
+                try {
+                    let obj = item.response.error.parameter.map(item => {
+                        let arr = item.key.split('.')
+                        item.newKey = arr[arr.length - 1]
+                        return item
+                    })
+
+                    let editor = new JsonEditor('#response_error_editor_json', JSON5.parse($('#response_error_editor_input').val()), {}, obj).load(JSON5.parse($('#response_error_editor_input').val()), obj)
+                } catch (e) { console.log(e); }
+                aptIndent.init();
+            }
+        })
+        $("table").colResizable({
+            liveDrag: true,
+            gripInnerHtml: "<div class='grip'></div>",
+            draggingClass: "dragging",
+            resizeMode: 'fit'
+        });
+    })
+        .on('click', '.control', function (e) {
+            e.stopPropagation()
+            let type = $(this).find('.folder_select').hasClass('down')
+            if (type) {
+                $(this).find('.folder_select').removeClass('down').addClass('right')
+            } else {
+                $(this).find('.folder_select').removeClass('right').addClass('down')
+            }
+            $(this).parents('.target').nextAll().toggle()
+        })
+        .on('input', '.search', function (e) {
+            if (timer) {
+                clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+                let searchVal = $(this).val().toLocaleLowerCase()
+                let TreeData = JSON.parse(JSON.stringify(arr.children))
+                let searchArr = []
+                let LevelArr = []
+                let fatherArr = []
+                function openTree(tree, parent_id) {
+                    tree.forEach((item) => {
+                        if (item.children && item.children.length > 0) {
+                            openTree(item.children, item.local_target_id)
+                        }
+                        item.parent_id = parent_id
+                    })
+                }
+                openTree(TreeData, 0);
+                function levelTree(arr, newarr) {
+                    arr.forEach(item => {
+                        if (item.children && item.children.length > 0) {
+                            newarr.push(item)
+                            levelTree(item.children, newarr)
+                        } else {
+                            newarr.push(item)
+                        }
+                    })
+                }
+                levelTree(TreeData, LevelArr)
+                if ($.trim(searchVal) != '') {
+                    LevelArr.forEach(item => {
+                        if (item.target_type == 'folder') {
+                            if (item.name.toString().toLocaleLowerCase().indexOf(searchVal) > -1) {
+                                searchArr.push(item)
+                            }
+                        } else {
+                            if (item.name.toString().toLocaleLowerCase().indexOf(searchVal) > -1 || item.method.toString().toLocaleLowerCase().indexOf(searchVal) > -1) {
+                                searchArr.push(item)
+                            }
+                        }
+                    })
+                    searchArr.forEach(item => {
+                        findFather(fatherArr, LevelArr, item)
+                    })
+
+                    function findFather(tempArr, arr, self) {
+                        if (self.parent_id != 0) {
+                            arr.filter(item => {
+                                if (self.parent_id == item.local_target_id) {
+                                    findFather(tempArr, arr, item);
+                                    if (tempArr.indexOf(item) === -1) {
+                                        tempArr.push(item);
+                                    }
+                                }
+                            })
+                        }
+                    }
+
+                    let finnalArr = searchArr.concat(fatherArr)
+                    $('.target').hide()
+                    $('.target[data-target_id="001"]').show()
+                    finnalArr.forEach(item => {
+                        $(`.target[data-target_id="${item.local_target_id}"]`).parent().show()
+                        $(`.target[data-target_id="${item.local_target_id}"]`).show()
+                        $('.target.folder').find('.folder_select').removeClass('right').addClass('down')
+                    })
+                } else {
+                    $('.target').parent().show()
+                    $('.target').show()
+                }
+            }, 100)
+        })
+        .on('mouseover', '.target.api', function () {
+            // $(this).find('em').css({ visibility: 'visible' })
+        })
+        .on('mouseleave', '.target.api', function () {
+            // $(this).find('em').css({ visibility: 'hidden' })
+        })
+        .on('click', '.nav-btn', function () {
+            let index = parseInt($(this).attr('data-id'))
+            $('.nav-btn').removeClass('cur')
+            $(this).addClass('cur')
+            console.log(index, $('.box-third .title').eq(index)[0]);
+            let top = $('.box-third .title').eq(index)[0].offsetTop
+            $('.box-third').scrollTop(top)
+        })
+        .on('click', '.nav-folder-btn', function () {
+            let index = parseInt($(this).attr('data-id'))
+            $('.nav-folder-btn').removeClass('cur')
+            $(this).addClass('cur')
+            let top = $('.box-third .title').eq(index)[0].offsetTop
+            $('.box-third').scrollTop(top)
+        })
+        .on('click', '.box-first .top', function () {
+            $('.target').removeClass('active')
+            $(this).addClass('active')
+            const obj = { ...arr?.project }
+            obj.create_dtime = arr?.create_time
+            obj.expire_time = arr?.expire_time
+            obj?.vars?.request?.header?.forEach((it, index) => {
+                if (!it.key) {
+                    obj?.vars?.request?.header?.splice(index, 1)
+                }
+            })
+            obj?.vars?.request?.query?.forEach((it, index) => {
+                if (!it.key) {
+                    obj?.vars?.request?.query?.splice(index, 1)
+                }
+            })
+            obj?.vars?.request?.body?.forEach((it, index) => {
+                if (!it.key) {
+                    obj?.vars?.request?.body?.splice(index, 1)
+                }
+            })
+            let _html = template('golbal-env-tpl', obj);
+            $('.preview-markdown').html(_html)
+        })
+        .on('click', 'h3.title', function () {
+            let type = $(this).find('i').hasClass('fa-angle-down')
+            if (type) {
+                $(this).find('i').removeClass('fa-angle-down').addClass('fa-angle-left')
+            } else {
+                $(this).find('i').removeClass('fa-angle-left').addClass('fa-angle-down')
+            }
+            $(this).next().toggle()
+        })
+        .on('mouseover', '.export', function () {
+            $(this).find('.export_panel').show()
+        })
+        .on('mouseleave', '.export', function () {
+            $(this).find('.export_panel').hide()
+        })
+    $(".box-third").scroll(function () {
+        let arr = []
+        $('.box-third .title').each((i, el) => {
+            arr.push($(el)[0].offsetTop)
+        })
+        arr.push(arr[arr.length - 1] + 10000)
+        let topHeight = $(this).scrollTop();
+        if ($('.target.active').hasClass('api')) {
+            for (let index = 0; index < arr.length; index++) {
+                if (arr[index] < topHeight && topHeight < arr[index + 1]) {
+                    $('.nav-btn').removeClass('cur')
+                    $('.nav-btn').eq(index).addClass('cur')
+                }
+            }
+        } else {
+            for (let index = 0; index < arr.length; index++) {
+                if (arr[index] < topHeight && topHeight < arr[index + 1]) {
+                    $('.nav-folder-btn').removeClass('cur')
+                    $('.nav-folder-btn').eq(index).addClass('cur')
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>
